@@ -1,4 +1,7 @@
+"use client"
+
 import type React from "react"
+
 interface IPhoneFrameProps {
   children?: React.ReactNode
   className?: string
@@ -6,7 +9,7 @@ interface IPhoneFrameProps {
 
 export function IPhoneFrame({ children, className = "" }: IPhoneFrameProps) {
   return (
-    <div className="relative w-full max-w-[375px] aspect-[375/812] mx-auto">
+    <div className={`relative mx-auto aspect-[375/812] w-full max-w-[375px] ${className}`}>
       {/* iPhone outer frame */}
       <div className="absolute inset-0 rounded-[45px] bg-black shadow-lg z-20">
         {/* Inner frame with border */}

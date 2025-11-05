@@ -49,11 +49,15 @@ export function HomeIndicator({ children }: HomeIndicatorProps) {
     <div ref={containerRef} className="relative h-full w-full overflow-hidden">
       {children}
 
-      {/* Home Indicator */}
-      <div
-        className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-[134px] h-[5px] bg-black rounded-full z-50 opacity-30 cursor-pointer"
+      {/* On-screen home button */}
+      <button
+        type="button"
         onClick={closeApp}
-      />
+        className="absolute bottom-5 left-1/2 flex h-9 w-24 -translate-x-1/2 items-center justify-center rounded-full bg-black/50 text-[0] shadow-md transition hover:bg-black/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
+        aria-label="Go Home"
+      >
+        <span className="h-1.5 w-12 rounded-full bg-white/80" />
+      </button>
     </div>
   )
 }

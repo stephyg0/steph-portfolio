@@ -1,11 +1,16 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import NextImage from "next/image"
 import { StatusBar } from "@/components/status-bar"
 import { AppIcon } from "@/components/app-icon"
-import { Widget } from "@/components/Widget"
 import { motion, AnimatePresence } from "framer-motion"
 import { useAppState } from "@/lib/app-state"
+import { Widget } from "@/components/Widget"
+import AxloraLogo from "@/assets/AXLORA.jpeg"
+import GoldmanLogo from "@/assets/GOLDMAN.png"
+import BostonDynamicsLogo from "@/assets/BD.png"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 
 interface HomeScreenProps {
   time: Date
@@ -13,7 +18,6 @@ interface HomeScreenProps {
 
 export function HomeScreen({ time }: HomeScreenProps) {
   const [currentPage, setCurrentPage] = useState(0)
-  const dayOfMonth = time.getDate()
   const { openControlCenter } = useAppState()
 
   // Preload critical SVG icons
@@ -47,6 +51,10 @@ export function HomeScreen({ time }: HomeScreenProps) {
       // Swipe right
       setCurrentPage(currentPage - 1)
     }
+  }
+
+  const handlePageToggle = () => {
+    setCurrentPage((prev) => (prev === 0 ? 1 : 0))
   }
 
   // Add touch handler for swipe down from top
@@ -98,62 +106,98 @@ export function HomeScreen({ time }: HomeScreenProps) {
           {currentPage === 0 && (
             <motion.div
               key="page-0"
-              className="absolute inset-0 px-6 pt-4 pb-6 flex flex-col"
+              className="absolute inset-0 flex flex-col px-6 pt-4 pb-6"
               initial={{ x: "-100%" }}
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ type: "spring", damping: 20, stiffness: 300 }}
             >
-              {/* Widgets */}
-              <div className="grid grid-cols-2 gap-4 mb-6">
+              {/* Experience widget */}
+              <div className="mb-3">
                 <Widget
-                  className="bg-gradient-to-br from-purple-500 to-pink-500 backdrop-blur-md cursor-pointer hover:scale-105 transition-transform"
-                  title="Experiences"
+                  title="Experience"
+                  hideTitle
+                  className="bg-gradient-to-br from-indigo-600 via-purple-500 to-sky-500 text-left text-white backdrop-blur-md"
                   content={
-                    <div className="text-white">
-                      <div className="text-sm font-medium">Axlora</div>
-                      <div className="flex items-center gap-1 mt-1">
-                        <span className="text-yellow-300 text-lg">💼</span>
-                        <span className="text-sm">Years Experience</span>
-                      </div>
-                      <div className="text-xs mt-1">iOS • React • Swift</div>
-                    </div>
-                  }
-                />
-                <Widget
-                  className="bg-gradient-to-br from-blue-600 to-indigo-600 backdrop-blur-md cursor-pointer hover:scale-105 transition-transform"
-                  title="Projects"
-                  content={
-                    <div className="text-white">
-                      <div className="text-xs text-blue-300 font-medium"></div>
-                      <div className="text-4xl font-light my-1">12+</div>
-                      <div className="flex items-center gap-1 mt-1 text-xs">
-                        <span className="text-gray-300">🚀</span>
-                        <span>Apps Built</span>
-                      </div>
-                      <div className="text-xs mt-1 text-blue-300">
-                        Mobile Apps
-                        <br />
-                        Web Development
-                      </div>
+                    <div className="flex min-h-[30px] items-center justify-center text-xs font-semibold uppercase tracking-[0.25em] text-white">
+                      Experience
                     </div>
                   }
                 />
               </div>
 
-              {/* First page app icons */}
-              <div className="grid grid-cols-4 gap-4 mb-6">
-                <AppIcon id="facetime" name="FaceTime" color="" />
+              {/* Experience apps */}
+              <div className="grid grid-cols-3 gap-4 mb-6">
+                <AppIcon
+                  id="axlora"
+                  name="Axlora"
+                  color="bg-white"
+                  customIcon={
+                    <div className="relative h-full w-full">
+                      <NextImage
+                        src={AxloraLogo}
+                        alt="Axlora logo"
+                        fill
+                        className="object-cover"
+                        sizes="60px"
+                        priority
+                      />
+                    </div>
+                  }
+                />
+                <AppIcon
+                  id="goldman"
+                  name="Goldman Sachs"
+                  color="bg-white"
+                  customIcon={
+                    <div className="relative h-full w-full">
+                      <NextImage
+                        src={GoldmanLogo}
+                        alt="Goldman Sachs logo"
+                        fill
+                        className="object-cover"
+                        sizes="60px"
+                      />
+                    </div>
+                  }
+                />
+                <AppIcon
+                  id="bostondynamics"
+                  name="Boston Dynamics"
+                  color="bg-white"
+                  customIcon={
+                    <div className="relative h-full w-full">
+                      <NextImage
+                        src={BostonDynamicsLogo}
+                        alt="Boston Dynamics logo"
+                        fill
+                        className="object-cover"
+                        sizes="60px"
+                      />
+                    </div>
+                  }
+                />
+              </div>
+
+              {/* Quick actions */}
+              <div className="grid grid-cols-4 gap-4 mt-auto">
                 <AppIcon id="calendar" name="Calendar" color="" />
-                <AppIcon id="photos" name="Photos" color="bg-gradient-to-br from-pink-400 via-purple-400 to-blue-400" />
-                <AppIcon id="camera" name="Camera" color="bg-gray-800" />
+                <AppIcon id="notes" name="Notes" color="bg-yellow-100" />
+                <AppIcon id="mail" name="Mail" color="bg-blue-500" />
+                <AppIcon id="safari" name="Portfolio" color="bg-indigo-500" />
               </div>
 
-              <div className="grid grid-cols-4 gap-4 mb-6">
-                <AppIcon id="mail" name="Mail" color="bg-blue-500" />
-                <AppIcon id="notes" name="Notes" color="bg-yellow-100" />
-                <AppIcon id="reminders" name="Reminders" color="bg-white" />
-                <AppIcon id="clock" name="Clock" color="bg-black" />
+              <div className="mt-4 flex justify-center">
+                <AppIcon
+                  id="linkedin"
+                  name="LinkedIn"
+                  color=""
+                  customIcon={
+                    <div className="flex h-full w-full items-center justify-center rounded-2xl bg-[#0A66C2] text-xl font-semibold text-white">
+                      in
+                    </div>
+                  }
+                />
               </div>
             </motion.div>
           )}
@@ -161,7 +205,7 @@ export function HomeScreen({ time }: HomeScreenProps) {
           {currentPage === 1 && (
             <motion.div
               key="page-1"
-              className="absolute inset-0 px-6 pt-4 pb-6 flex flex-col"
+              className="absolute inset-0 flex flex-col px-6 pt-4 pb-6"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
@@ -187,21 +231,29 @@ export function HomeScreen({ time }: HomeScreenProps) {
       </motion.div>
 
       {/* Page Indicators */}
-      <div className="flex justify-center mb-2">
+      <div className="mb-2 flex items-center justify-center gap-2">
         <div className="flex gap-1.5">
           <button
-            className={`w-1.5 h-1.5 rounded-full ${currentPage === 0 ? "bg-white" : "bg-white/30"}`}
+            className={`h-1.5 w-1.5 rounded-full ${currentPage === 0 ? "bg-white" : "bg-white/30"}`}
             onClick={() => setCurrentPage(0)}
           />
           <button
-            className={`w-1.5 h-1.5 rounded-full ${currentPage === 1 ? "bg-white" : "bg-white/30"}`}
+            className={`h-1.5 w-1.5 rounded-full ${currentPage === 1 ? "bg-white" : "bg-white/30"}`}
             onClick={() => setCurrentPage(1)}
           />
         </div>
+        <button
+          type="button"
+          onClick={handlePageToggle}
+          className="flex h-8 w-8 items-center justify-center rounded-full bg-white/80 text-gray-700 shadow-sm backdrop-blur transition hover:bg-white dark:bg-white/10 dark:text-white"
+          aria-label={currentPage === 0 ? "Go to next page" : "Go to previous page"}
+        >
+          {currentPage === 0 ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+        </button>
       </div>
 
       {/* Dock */}
-      <div className="grid grid-cols-4 gap-4 px-6 mb-6">
+      <div className="grid grid-cols-4 gap-4 px-6 mb-4">
         <AppIcon id="phone" name="Phone" color="bg-green-500" />
         <AppIcon id="safari" name="Safari" color="" />
         <AppIcon id="messages" name="Messages" color="" />

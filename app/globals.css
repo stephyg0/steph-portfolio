@@ -6,6 +6,10 @@
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
+    --gradient-x: 50%;
+    --gradient-y: 50%;
+    --gradient-pulse: 0.5;
+    --gradient-hue: 220deg;
 
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
@@ -71,7 +75,51 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
+    background-color: #fffaf3;
+    color: inherit;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    background: radial-gradient(
+        circle at var(--gradient-x) var(--gradient-y),
+        rgba(255, 188, 150, calc(0.56 + var(--gradient-pulse) * 0.16)),
+        rgba(255, 215, 179, calc(0.58 + var(--gradient-pulse) * 0.12)) 24%,
+        rgba(255, 233, 210, 0.9) 48%,
+        rgba(255, 244, 228, 0.95)
+      ),
+      radial-gradient(
+        circle at calc(100% - var(--gradient-x)) calc(100% - var(--gradient-y)),
+        rgba(255, 184, 122, 0.42),
+        transparent 60%
+      ),
+      linear-gradient(135deg, rgba(255, 253, 248, 0.96), rgba(255, 238, 220, 0.9) 40%, rgba(255, 250, 238, 0.98));
+    background-size: 110% 110%, 140% 140%, 100% 100%;
+    background-attachment: fixed;
+    transition: background 0.7s ease-out;
+  }
+  .dark body {
+    background-color: #000007;
+  }
+  .dark body::before {
+    background: radial-gradient(
+        circle at var(--gradient-x) var(--gradient-y),
+        rgba(204, 68, 168, calc(0.55 + var(--gradient-pulse) * 0.08)),
+        rgba(92, 50, 180, calc(0.32 + var(--gradient-pulse) * 0.06)) 26%,
+        rgba(38, 64, 198, calc(0.22 + var(--gradient-pulse) * 0.05)) 46%,
+        rgba(6, 7, 18, 0.92) 78%
+      ),
+      radial-gradient(
+        circle at calc(100% - var(--gradient-x)) calc(100% - var(--gradient-y)),
+        rgba(36, 58, 172, 0.24),
+        transparent 75%
+      ),
+      linear-gradient(150deg, rgba(0, 0, 9, 0.99), rgba(0, 0, 5, 0.86) 48%, rgba(0, 0, 2, 0.995));
+    background-size: 160% 160%, 200% 200%, 100% 100%;
   }
 }
 
