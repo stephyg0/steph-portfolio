@@ -144,7 +144,7 @@ export function HomeScreen({ time }: HomeScreenProps) {
                   name="Axlora"
                   color="bg-white"
                   customIcon={
-                    renderCompanyLogo(AxloraLogo, "Axlora logo", true)
+                    renderCompanyLogo(AxloraLogo, "Axlora logo", { priority: true })
                   }
                 />
                 <AppIcon
