@@ -220,6 +220,27 @@ export function AppView({ appId }: AppViewProps) {
           ]}
         />
       ),
+      prate: (
+        <ProjectsApp
+          name="PRate"
+          role="Creator"
+          timeframe="Live product"
+          description="Explore the PRate experience and see the app in action."
+          stack={["Web app", "Product"]}
+          highlights={[
+            {
+              label: "Live site",
+              value: "prateapp.com",
+            },
+          ]}
+          links={[
+            {
+              label: "Visit PRate",
+              href: "https://prateapp.com/",
+            },
+          ]}
+        />
+      ),
       beacon: <BeaconApp />,
     }
 
@@ -265,7 +286,7 @@ export function AppView({ appId }: AppViewProps) {
     }
   }
 
-  const showHeader = !["camera", "messages", "photos", "notes", "safari", "phone", "spotify"].includes(appId)
+  const showHeader = !["calendar", "camera", "messages", "photos", "notes", "safari", "phone", "spotify"].includes(appId)
 
   return (
     <HomeIndicator>

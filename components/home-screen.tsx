@@ -14,9 +14,10 @@ import { ChevronLeft, ChevronRight } from "lucide-react"
 
 interface HomeScreenProps {
   time: Date
+  revealApps?: boolean
 }
 
-export function HomeScreen({ time }: HomeScreenProps) {
+export function HomeScreen({ time, revealApps = false }: HomeScreenProps) {
   const [currentPage, setCurrentPage] = useState(0)
   const { openControlCenter } = useAppState()
   const companyIconBase =
@@ -138,11 +139,13 @@ export function HomeScreen({ time }: HomeScreenProps) {
               </div>
 
               {/* Experience apps */}
-              <div className="grid grid-cols-3 gap-4 mt-2">
+              <div className="grid grid-cols-4 gap-4 mt-2 mb-1">
                 <AppIcon
                   id="axlora"
                   name="Axlora"
                   color="bg-white"
+                  reveal={revealApps}
+                  revealIndex={0}
                   customIcon={
                     renderCompanyLogo(AxloraLogo, "Axlora logo", { priority: true })
                   }
@@ -151,6 +154,8 @@ export function HomeScreen({ time }: HomeScreenProps) {
                   id="goldman"
                   name="Goldman Sachs"
                   color="bg-white"
+                  reveal={revealApps}
+                  revealIndex={1}
                   customIcon={
                     renderCompanyLogo(GoldmanLogo, "Goldman Sachs logo", { borderless: true })
                   }
@@ -159,13 +164,93 @@ export function HomeScreen({ time }: HomeScreenProps) {
                   id="bostondynamics"
                   name="Boston Dynamics"
                   color="bg-white"
+                  reveal={revealApps}
+                  revealIndex={2}
                   customIcon={
                     renderCompanyLogo(BostonDynamicsLogo, "Boston Dynamics logo")
                   }
                 />
+                <AppIcon
+                  id="matcha"
+                  name="Matcha"
+                  color="bg-white"
+                  reveal={revealApps}
+                  revealIndex={3}
+                  externalUrl="https://trymatcha.ai/"
+                  customIcon={
+                    <div className="flex h-full w-full items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-200 via-lime-200 to-amber-100 text-[11px] font-semibold uppercase tracking-[0.25em] text-emerald-800">
+                      AI
+                    </div>
+                  }
+                />
               </div>
 
-              <div className="mt-2 mb-3">
+              <div className="mt-3">
+                <Widget
+                  title="Projects"
+                  hideTitle
+                  className="border border-white/35 bg-white/18 text-left text-white/90 shadow-[0_12px_45px_rgba(24,26,54,0.22)] backdrop-blur-2xl !px-3 !py-2 dark:border-white/12 dark:bg-white/8"
+                  content={
+                    <div className="flex min-h-[22px] items-center justify-center text-[11px] font-semibold uppercase tracking-[0.3em] text-white/90">
+                      Projects
+                    </div>
+                  }
+                />
+              </div>
+
+              <div className="mt-4 grid grid-cols-4 gap-4 mb-2">
+                <AppIcon
+                  id="christmas"
+                  name="Lights"
+                  color="bg-white"
+                  reveal={revealApps}
+                  revealIndex={4}
+                  customIcon={
+                    <div className="flex h-full w-full items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-200 via-amber-200 to-rose-200 text-[11px] font-semibold uppercase tracking-[0.25em] text-emerald-800">
+                      XMAS
+                    </div>
+                  }
+                />
+                <AppIcon
+                  id="spotlight"
+                  name="Spotlight"
+                  color="bg-white"
+                  reveal={revealApps}
+                  revealIndex={5}
+                  customIcon={
+                    <div className="flex h-full w-full items-center justify-center rounded-2xl bg-gradient-to-br from-fuchsia-200 via-rose-200 to-amber-200 text-[11px] font-semibold uppercase tracking-[0.25em] text-rose-700">
+                      Spot
+                    </div>
+                  }
+                />
+                <AppIcon
+                  id="beacon"
+                  name="Beacon"
+                  color="bg-white"
+                  reveal={revealApps}
+                  revealIndex={6}
+                  customIcon={
+                    <div className="flex h-full w-full items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-200 via-sky-200 to-indigo-200 text-[11px] font-semibold uppercase tracking-[0.25em] text-sky-800">
+                      SOS
+                    </div>
+                  }
+                />
+                <AppIcon
+                  id="prate"
+                  name="PRate"
+                  color="bg-white"
+                  reveal={revealApps}
+                  revealIndex={7}
+                  externalUrl="https://prateapp.com/"
+                  customIcon={
+                    <div className="flex h-full w-full items-center justify-center rounded-2xl bg-gradient-to-br from-orange-200 via-rose-200 to-fuchsia-200 text-[11px] font-semibold uppercase tracking-[0.25em] text-rose-700">
+                      PR
+                    </div>
+                  }
+                />
+              </div>
+
+              <div className="mt-1 mb-3">
                 <Widget
                   title="Education"
                   hideTitle
@@ -183,6 +268,8 @@ export function HomeScreen({ time }: HomeScreenProps) {
                   id="minerva"
                   name="Minerva"
                   color="bg-white"
+                  reveal={revealApps}
+                  revealIndex={8}
                   customIcon={
                     <div
                       className={`${companyIconBase} bg-gradient-to-br from-amber-200 via-pink-200 to-rose-200 text-rose-700`}
@@ -195,6 +282,8 @@ export function HomeScreen({ time }: HomeScreenProps) {
                   id="pearson"
                   name="Pearson"
                   color="bg-white"
+                  reveal={revealApps}
+                  revealIndex={9}
                   customIcon={
                     <div
                       className={`${companyIconBase} bg-gradient-to-br from-sky-200 via-purple-200 to-indigo-200 text-indigo-700`}
@@ -204,100 +293,29 @@ export function HomeScreen({ time }: HomeScreenProps) {
                   }
                 />
               </div>
-
-              <div className="mt-1">
-                <Widget
-                  title="Projects"
-                  hideTitle
-                  className="border border-white/35 bg-white/18 text-left text-white/90 shadow-[0_12px_45px_rgba(24,26,54,0.22)] backdrop-blur-2xl !px-3 !py-2 dark:border-white/12 dark:bg-white/8"
-                  content={
-                    <div className="flex min-h-[22px] items-center justify-center text-[11px] font-semibold uppercase tracking-[0.3em] text-white/90">
-                      Projects
-                    </div>
-                  }
-                />
-              </div>
-
-              <div className="mt-2 grid grid-cols-4 gap-4 mb-4">
-                <AppIcon
-                  id="christmas"
-                  name="Lights"
-                  color="bg-white"
-                  customIcon={
-                    <div className="flex h-full w-full items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-200 via-amber-200 to-rose-200 text-[11px] font-semibold uppercase tracking-[0.25em] text-emerald-800">
-                      XMAS
-                    </div>
-                  }
-                />
-                <AppIcon
-                  id="spotlight"
-                  name="Spotlight"
-                  color="bg-white"
-                  customIcon={
-                    <div className="flex h-full w-full items-center justify-center rounded-2xl bg-gradient-to-br from-fuchsia-200 via-rose-200 to-amber-200 text-[11px] font-semibold uppercase tracking-[0.25em] text-rose-700">
-                      Spot
-                    </div>
-                  }
-                />
-                <AppIcon
-                  id="beacon"
-                  name="Beacon"
-                  color="bg-white"
-                  customIcon={
-                    <div className="flex h-full w-full items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-200 via-sky-200 to-indigo-200 text-[11px] font-semibold uppercase tracking-[0.25em] text-sky-800">
-                      SOS
-                    </div>
-                  }
-                />
-                <AppIcon
-                  id="matcha"
-                  name="Matcha"
-                  color="bg-white"
-                  externalUrl="https://trymatcha.ai/"
-                  customIcon={
-                    <div className="flex h-full w-full items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-200 via-lime-200 to-amber-100 text-[11px] font-semibold uppercase tracking-[0.25em] text-emerald-800">
-                      AI
-                    </div>
-                  }
-                />
-              </div>
-              {/* Quick actions */}
-              <div className="grid grid-cols-4 gap-4 mt-auto">
-                <AppIcon id="calendar" name="Calendar" color="" />
-                <AppIcon id="notes" name="Notes" color="bg-yellow-100" />
-                <AppIcon id="mail" name="Mail" color="bg-blue-500" />
-                <AppIcon id="safari" name="Portfolio" color="bg-indigo-500" />
-              </div>
-              <div className="mt-4 flex justify-center">
-                <AppIcon
-                  id="linkedin"
-                  name="LinkedIn"
-                  color=""
-                  customIcon={
-                    <div className="flex h-full w-full items-center justify-center rounded-2xl bg-[#0A66C2] text-xl font-semibold text-white">
-                      in
-                    </div>
-                  }
-                />
-              </div>
+              <div className="mt-auto" />
           </motion.div>
         )}
 
         {currentPage === 1 && (
           <motion.div className="absolute inset-0 flex flex-col px-6 pt-8 pb-6">
               {/* Second page app icons */}
-              <div className="grid grid-cols-4 gap-4 mb-6">
-                <AppIcon id="maps" name="Maps" color="" />
-                <AppIcon id="health" name="Health" color="" />
-                <AppIcon id="wallet" name="Wallet" color="bg-gradient-to-b from-yellow-400 to-red-500" />
-                <AppIcon id="settings" name="Settings" color="bg-gray-200" />
-              </div>
-
-              <div className="grid grid-cols-4 gap-4 mb-6">
-                <AppIcon id="news" name="News" color="bg-red-600" />
-                <AppIcon id="tv" name="TV" color="bg-black" />
-                <AppIcon id="podcasts" name="Podcasts" color="" />
-                <AppIcon id="appstore" name="App Store" color="" />
+              <div className="grid grid-cols-4 gap-4">
+                <AppIcon id="maps" name="Maps" color="" reveal={revealApps} revealIndex={10} />
+                <AppIcon id="notes" name="Notes" color="bg-yellow-100" reveal={revealApps} revealIndex={11} />
+                <AppIcon id="camera" name="Camera" color="" reveal={revealApps} revealIndex={12} />
+                <AppIcon
+                  id="linkedin"
+                  name="LinkedIn"
+                  color=""
+                  reveal={revealApps}
+                  revealIndex={13}
+                  customIcon={
+                    <div className="flex h-full w-full items-center justify-center rounded-2xl bg-[#0A66C2] text-xl font-semibold text-white">
+                      in
+                    </div>
+                  }
+                />
               </div>
           </motion.div>
         )}
@@ -327,10 +345,23 @@ export function HomeScreen({ time }: HomeScreenProps) {
 
       {/* Dock */}
       <div className="grid grid-cols-4 gap-4 px-6 mb-4">
-        <AppIcon id="phone" name="Phone" color="bg-green-500" />
-        <AppIcon id="safari" name="Safari" color="" />
-        <AppIcon id="messages" name="Messages" color="" />
-        <AppIcon id="spotify" name="Spotify" color="" />
+        <AppIcon
+          id="calendar"
+          name="Calendar"
+          color="bg-gradient-to-b from-red-500 to-orange-400"
+          reveal={revealApps}
+          revealIndex={14}
+        />
+        <AppIcon id="safari" name="Safari" color="" reveal={revealApps} revealIndex={15} />
+        <AppIcon
+          id="mail"
+          name="Mail"
+          color="bg-blue-500"
+          externalUrl="mailto:hello@stephaniegao.com"
+          reveal={revealApps}
+          revealIndex={16}
+        />
+        <AppIcon id="spotify" name="Spotify" color="" reveal={revealApps} revealIndex={17} />
       </div>
     </div>
   )

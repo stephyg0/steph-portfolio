@@ -13,9 +13,21 @@ interface AppIconProps {
   customIcon?: ReactNode
   size?: "normal" | "small"
   externalUrl?: string
+  reveal?: boolean
+  revealIndex?: number
 }
 
-export function AppIcon({ id, name, color, icon, customIcon, size = "normal", externalUrl }: AppIconProps) {
+export function AppIcon({
+  id,
+  name,
+  color,
+  icon,
+  customIcon,
+  size = "normal",
+  externalUrl,
+  reveal = false,
+  revealIndex = 0,
+}: AppIconProps) {
   const { openApp } = useAppState()
 
   const handleClick = () => {
@@ -82,8 +94,29 @@ export function AppIcon({ id, name, color, icon, customIcon, size = "normal", ex
     return <div className="flex items-center justify-center w-full h-full">{name[0].toUpperCase()}</div>
   }
 
+  const revealVariants = {
+    hidden: { opacity: 0, scale: 0.2 },
+    show: (index: number) => ({
+      opacity: 1,
+      scale: 1,
+      transition: {
+        type: "spring",
+        stiffness: 520,
+        damping: 28,
+        mass: 0.7,
+        delay: 0.08 + index * 0.035,
+      },
+    }),
+  }
+
   return (
-    <div className="flex flex-col items-center select-none">
+    <motion.div
+      className="flex flex-col items-center select-none"
+      variants={revealVariants}
+      initial="hidden"
+      animate={reveal ? "show" : "hidden"}
+      custom={revealIndex}
+    >
       <motion.div
         className={`app-icon ${color}`}
         whileTap={{ scale: 0.9 }}
@@ -97,6 +130,6 @@ export function AppIcon({ id, name, color, icon, customIcon, size = "normal", ex
         {renderIcon()}
       </motion.div>
       {size === "normal" && <div className="text-[10px] text-white mt-1">{name}</div>}
-    </div>
+    </motion.div>
   )
 }
